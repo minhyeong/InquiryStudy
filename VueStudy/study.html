@@ -3,23 +3,38 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>To Do List | Study</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <title>To Do App | Study</title>
+  <link rel="stylesheet" href="css/design.css">
 </head>
 
 <body>
-  <div>
-    <h1>
-      To Do List
-    </h1>
-    <ul>
-      <span class="L_under">
-        List Sample<br/>
-      </span>
-      ( 1 / 1 )
-    </ul>
+
+  <div id="app" >
+  <h1>
+    タスクリスト
+    <span class="info">({{ remaining.length }}/{{ todos.length }})</span> <!-- {{??}} ??はtodosの長さを表示 -->
+  </h1>
+  
+  <form @submit.prevent="addItem">
+    <input type="text" v-model="newItem" class="title_label">
+    <button type="submit" value="Add" class="btn"><i class="fa">追加</i></button>
+  </form>
+  
+  <ul>
+    <li @click="" class="title_label" v-for="(todo, index) in todos">
+      <span :class="{done: todo.isDone}">{{ todo.title }}</span>
+      <span @click="deleteItem(index)" class ="command btn2"><i class="fa2">削除</i></span>
+      <br>
+    </li>
+    <li v-show="!todos.length" class="title_label">タスクなし</li>
+  </ul>
+
+
+    
   </div>
 
-</body>
 
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="js/main.js"></script>
+</body>
 </html>
