@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>ToDoList | Study</title>
+  <link rel="stylesheet" href="css/design.css">
+
+</head>
+
+
+<body>
+
+  <div id="app" class="container">
+
+    <h1>
+      <button @click="purge" class="square_btn">Purge</button>
+      タスクリスト
+      <span class="info">({{ remaining.length }}/{{ todos.length }})</span>
+    </h1>
+
+    <!-- "@submit.prevent"で、formの通信を遮って指定関数を呼び出す -->
+    <form @submit.prevent="addItem">
+      <input type="text" v-model="newItem">
+      <input type="submit" value="追加" class="square_btn">
+    </form> 
+    <ul>
+      <!-- タスクのタイトル -->
+      <li v-for="(todo, index) in todos">
+        <input type="checkbox" v-model="todo.isDone">
+        <article>
+          <label class="title_btn">
+            <span :class="{done: todo.isDone}">{{ todo.title }}</span><br>
+            <label @click="active(index)" class="command square_btn">詳細</label>
+            <label @click="deleteItem(index)" class="command square_btn">削除</label>
+            
+            <div v-if="todo.isActive" style="padding: 5px;">
+                <textarea
+                  name="detel"
+                  rows="4" cols="40"
+                  placeholder="ここに詳細は記述して下さい"
+                  v-model="todo.detail">
+                </textarea>
+            </div>
+          </label>
+        </article>
+      </li>
+      <li v-show="!todos.length">タスクを追加してね!</li>
+    </ul>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
